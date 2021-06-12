@@ -6,7 +6,7 @@ const Directions: FC = () => {
     <div className={styles.container}>
       <div className={styles.directionContainer}>
         <span className={styles.directionHeader}>Directions</span>
-        <p className={styles.directions}>This is the Voice Authentication Enrollment Page<br/>25 Seconds of Enrollment Audio is Required<br/>Please Read and Record the Following Script for 25 seconds to Complete the Enrollment Process</p>
+        <p className={styles.directions}>This is the Voice Authentication Enrollment Page<br/>Please Read and Record the Following Script for 25 seconds to Complete the Enrollment Process<br/>Then Add a Custom Password or Phrase That Will Be Spoken Each Time You Login</p>
       </div>
 
       <div className={styles.scriptContainer}>

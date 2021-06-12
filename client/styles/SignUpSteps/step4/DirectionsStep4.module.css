@@ -1,0 +1,34 @@
+.container {
+    padding: 5px;
+    margin-top: 10px;
+    border: 1px rgb(223, 227, 235) solid;
+    border-radius: 8px;
+    width: 650px;
+    overflow-y: scroll;
+    height: 150px;
+}
+
+.directionContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.directionHeader {
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.directions {
+    text-align: center;
+    font-size: 16px;
+}   
+
+.scriptContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 10px;
+}
