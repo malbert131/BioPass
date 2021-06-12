@@ -26,6 +26,8 @@ const step3: FC = () => {
     
   }
 
+
+
   return (
     <div>
       <div className={styles.titleSection}>

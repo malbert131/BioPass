@@ -7,7 +7,7 @@ const DirectionsStep4: FC = () => {
       <div className={styles.container}>
       <div className={styles.directionContainer}>
         <span className={styles.directionHeader}>Directions</span>
-        <p className={styles.directions}>This is the Gesture Authentication Enrollment Page<br/>Show Your Unique Hand Gesture to the Camera and Select "Capture Pose"<br/>This Gesture Will Act as an Identifier to Unlock Your Passwords<br/><strong>(Please Hold the Pose Until the Authenticator Shows "Accepted!")</strong></p>
+        <p className={styles.directions}>This is the Face Verification Enrollment Page.<br/>Please Look Directly Into the Camera and Select "Capture Image"<br/><strong>The Image Will Initialize Your Profile in the Database</strong></p>
       </div>
 
     </div>
