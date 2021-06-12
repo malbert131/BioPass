@@ -5,9 +5,12 @@ const fs = require('fs')
 const sdk = require("microsoft-cognitiveservices-speech-sdk")
 const speechConfig = sdk.SpeechConfig.fromSubscription(SPEECH_SUBSCRIPTION_KEY, SPEECH_REGION)
 
+//inputed audio verification file
+let verify_file = "post-executed.wav"
+
 //Speech-to-Text For Wav File
-function fromFile(file : string) {
-    let audioConfig = sdk.AudioConfig.fromWavFileInput(fs.readFileSync(file));
+function fromFileSTT() {
+    let audioConfig = sdk.AudioConfig.fromWavFileInput(fs.readFileSync(verify_file));
     let recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
     let text : string | null = null
 
@@ -19,7 +22,7 @@ function fromFile(file : string) {
 
     return text
 }
-if (fromFile("verify.wav") === "My voice is my passport, verify me") {
+if (fromFileSTT() === "My voice is my passport, verify me") {
     console.log("ACCESS GRANTED")
 }
 else {
@@ -27,3 +30,4 @@ else {
 }
 
 
+export default fromFileSTT;
