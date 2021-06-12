@@ -1,4 +1,4 @@
 nodeServer/node_modules/
 nodeServer/src/**/*.js
 nodeServer/src/var.ts
-pythonServer/key.py
+pythonServer/FaceAuth/key.py
