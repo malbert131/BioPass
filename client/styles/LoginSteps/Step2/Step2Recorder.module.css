@@ -1,0 +1,28 @@
+.recorderContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.recodingH2 {
+    text-align: center;
+}
+
+.recordButton {
+    background-color: #408fff;
+    border: 1px inset rgba(5, 24, 61, 0.1);
+    color: var(--coin-color);
+    padding: 13px 29px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 18px;
+    text-align: center;
+}

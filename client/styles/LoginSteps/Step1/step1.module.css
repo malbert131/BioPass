@@ -1,0 +1,27 @@
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 120%;
+}
+
+.title span {
+  color: var(--blue-color);
+  text-decoration: none;
+}
+
+
+.title {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  line-height: 1.15;
+  font-size: 45px;
+  margin-bottom: 20px;
+
+}
+
+.formContainer {
+    padding-top: 20px;
+}

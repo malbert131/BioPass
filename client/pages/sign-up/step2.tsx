@@ -26,7 +26,7 @@ const step2: FC = () => {
   const sendDataToAPI = async (keyWord: string) => {
     if (formData) {
       console.log(keyWord)
-      await Util.enroll(formData, keyWord);
+      await Util.enrollAudio(formData, keyWord);
       router.push(nextHref);
     }
     

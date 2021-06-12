@@ -5,7 +5,7 @@ const baseUrlPython = "http://127.0.0.1:5000"
 
 const Util = {
   
-  async enroll (audioData: FormData, keyWord: string) {
+  async enrollAudio (audioData: FormData, keyWord: string) {
     await axios.post(`${baseUrl}/enroll`, audioData, {
       headers: {
         'enctype': 'multipart/form-data'
@@ -17,6 +17,17 @@ const Util = {
 
     console.log("Sent")
   },
+
+  async authenticateAudio(audioData: FormData) {
+    const response = await axios.post(`${baseUrl}/authenticateAudio`, audioData, {
+      headers: {
+        'enctype': 'multipart/form-data'
+      }
+    })
+
+    console.log("Sent")
+    return response.data.authenticated;
+},
 
   async sendGesture(gestureData: string[][]) {
     
