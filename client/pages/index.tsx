@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
 export default function Home() {
 
@@ -17,7 +18,35 @@ export default function Home() {
 
     <div className={styles.descriptionContainer}>
       <h2 className={styles.description}>Tired of remembering countless passwords? Worried about your online account security?<br/>BioPass has you covered by turning your unique biometric signature into the only password you'll ever need.</h2>
-    </div>
+      </div>
+      
+      <div className={styles.buttonsContainer}>
+        <div className={styles.signUp}>
+          <Link href="/sign-up/step1" >
+            <a>
+              <button className={styles.linkButton}>Sign Up</button>
+            </a>
+          </Link>
+          
+          <div className={styles.belowText}>
+              Don't have and account? <br/> Make one!
+          </div>
+        </div>
+      
+        <div className={styles.login}>
+          <Link href="/login/step1" >
+            <a>
+              <button className={styles.linkButton}>Login</button>
+            </a>
+          </Link>
+          <div className={styles.belowText}>
+              Have and account?<br/> Login in!
+          </div>
+        </div>
+
+        
+      </div>
+
     </div>
   )
 }
