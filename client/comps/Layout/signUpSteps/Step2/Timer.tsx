@@ -11,7 +11,8 @@ const Timer: FC = () => {
 
   return (
     <div className="App">
-      <div>0:{counter}</div>
+      {counter === 0 ? <div>Done!</div> :  <div>0:{counter}</div>}
+     
     </div>
   )
 }
