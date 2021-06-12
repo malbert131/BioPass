@@ -33,7 +33,7 @@ const Step2Form: FC<Step2FormProps> = ({ sendDataToAPI }) => {
       <form onSubmit={handleSubmit(submitForm)}>
       
           <div className={[styles.nameInput, styles.inputContainer].join(" ")}>
-            <label htmlFor="passPhrase">Enter Your Pass Phrase</label>
+            <label htmlFor="passPhrase">Enter Your Passphrase</label>
             <input
               {...register("passPhrase", { required: "A pass phrase is required" })}
               id="passPhrase"

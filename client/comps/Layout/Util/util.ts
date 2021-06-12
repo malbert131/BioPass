@@ -15,6 +15,12 @@ const Util = {
     })
 
     console.log("Sent")
+  },
+
+  async sendGesture(gestureData: string[][]) {
+    
+    await axios.post(`${baseUrl}/sendGesture`, gestureData)
+    console.log("Sent");
   }
 }
 

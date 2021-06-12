@@ -37,6 +37,18 @@ app.post('/enroll', upload.single('soundBlob'), (req, res, next) => {
   }
   
 })
+
+app.post('/sendGesture', (req, res, next) => {
+  try {
+    const gesture = req.body
+    // save gesture in mongo
+    res.sendStatus(200);
+  } catch (error) {
+    next(error)
+  }
+  
+
+})
  
 app.listen(PORT, () => {
   console.log('The server is listening on port: ' + PORT);
