@@ -1,0 +1,27 @@
+.container {
+    width: 100%;
+    padding: 10px;
+}
+
+.topDiv {
+    width: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.textContainer {
+    font-size: 35px;
+    padding-left: 25px;
+    padding-top: 10px;
+    font-weight: 600;
+}
+
+.colorText {
+    color: var(--blue-color);
+}
+
+.gifLogo {
+    height: 37px;
+    padding-left: 12px;
+
+}

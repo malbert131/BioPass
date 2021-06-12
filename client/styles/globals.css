@@ -14,3 +14,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+:root {
+    --blue-color: #0c6cf2;
+}
