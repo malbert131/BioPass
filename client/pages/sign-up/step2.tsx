@@ -27,7 +27,7 @@ const step2: FC = () => {
     if (formData) {
       console.log(keyWord)
       await Util.enroll(formData, keyWord);
-      // router.push(nextHref);
+      router.push(nextHref);
     }
     
   }
