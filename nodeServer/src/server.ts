@@ -24,6 +24,9 @@ app.post('/enroll', upload.single('soundBlob'), (req, res, next) => {
     let uploadLocation = "./src/pre-executed.mp3"// where to save the file to. make sure the incoming name has a .wav extension
     //  let uploadLocation = "./ThisMadeIt.mp3"// where to save the file to. make sure the incoming name has a .wav extension
 
+    const passPhrase = req.query.passPhrase
+    console.log(passPhrase);
+
     fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
 
     // Then call the mothods

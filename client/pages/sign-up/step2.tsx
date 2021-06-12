@@ -5,6 +5,7 @@ import Timer from "../../comps/Layout/signUpSteps/Step2/Timer";
 import Recorder from "../../comps/Layout/signUpSteps/Step2/Recorder";
 import Util from "../../comps/Layout/Util/util";
 import { useRouter } from "next/router";
+import Step2Form from "../../comps/Layout/signUpSteps/Step2/Step2Form";
 
 const step2: FC = () => {
   const [isStarted, setIsStarted] = useState(false);
@@ -22,15 +23,17 @@ const step2: FC = () => {
 
   const nextHref = "/sign-up/step3"
 
-  const sendDataToAPI = async () => {
+  const sendDataToAPI = async (keyWord: string) => {
     if (formData) {
-      await Util.enroll(formData);
-      router.push(nextHref);
+      console.log(keyWord)
+      await Util.enroll(formData, keyWord);
+      // router.push(nextHref);
     }
-
-    
     
   }
+
+ 
+
 
   return (
     <div>
@@ -65,9 +68,8 @@ const step2: FC = () => {
           <Recorder startTimer={startTimer} setFormDataPass={setFormDataPass}/>
         </div>
 
-        <div className={styles.nextButton}>
-          <button className={styles.submitButton} onClick={sendDataToAPI}>Next</button>
-        </div>
+        <Step2Form sendDataToAPI={sendDataToAPI}/>
+        
       </div>
     </div>
   );
