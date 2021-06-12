@@ -1,0 +1,39 @@
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title span {
+    margin-left: 13px;
+  color: var(--blue-color);
+  text-decoration: none;
+}
+
+
+.title {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  line-height: 1.15;
+  font-size: 45px;
+  margin-bottom: 20px;
+
+}
+
+
+.stepContainer {
+    display: flex;
+    justify-content: center;
+    padding-top: 1%;
+    padding-bottom: 10px;
+}
+
+.directionsContainer {
+
+}
+
+.timerContainer {
+    font-size: 45px;
+}
