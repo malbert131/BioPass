@@ -6,28 +6,37 @@ import Webcam from "react-webcam";
 // @ts-ignore
 import * as fp from "fingerpose";
 
-import ConvertFunctions from "../../loginSteps/Step3/convert";
+import ConvertFunctions from "./convert";
 
 import styles from "../../../../styles/SignUpSteps/step3/WebCamSection.module.css";
 
+
 interface WebCamSectionProps {
-  updateGesture: (gesture: string[][]) => void;
+  authenticationGesture: string[][],
+  falseAuthentication: boolean,
+  passUpGestureGuess: (guess: string) => void
 }
 
-const WebCamSection: FC<WebCamSectionProps> = ({ updateGesture }) => {
+const Step3WebCam: FC<WebCamSectionProps> = ({ authenticationGesture, falseAuthentication, passUpGestureGuess }) => {
 
   const webcamRef = useRef<Webcam | null>(null);
 
   const [hasStarted, setHasStarted] = useState(false);
   const [isDetecting, setDetecting] = useState(false);
+  const [falseAuthenticationState, setFalseAuthenticationState] = useState(falseAuthentication);
 
   ///////// NEW STUFF ADDED STATE HOOK
+
+  if (falseAuthenticationState) {
+    setHasStarted(false);
+    setDetecting(false);
+  }
 
   const deviceID =
     "b92bca98334678e4afd924e5b9e31a7ded8afcc1363167fca36f749ec21cf338";
 
   // HERERE GESTURE IS HERE
-  // const okGesture = new fp.GestureDescription("okEmoji");
+  const authenticationGestureNew = new fp.GestureDescription("authenticationGestureNew");
 
   // const positions = [
   //   ["Thumb", "No Curl", "Diagonal Up Right"],
@@ -45,13 +54,13 @@ const WebCamSection: FC<WebCamSectionProps> = ({ updateGesture }) => {
   //     ["Pinky", "Full Curl", "Horizontal Right"]
   // ]
 
-  // for (let i = 0; i < positions.length; i++) {
-  //   const finger = ConvertFunctions.convertFingerToNum(positions[i][0]);
-  //   const curl = ConvertFunctions.convertCurlToNum(positions[i][1]);
-  //   const direction = ConvertFunctions.convertDirectionToNum(positions[i][2]);
-  //   okGesture.addCurl(finger, curl, 1.0);
-  //   okGesture.addDirection(finger, direction, 1.0);
-  // }
+  for (let i = 0; i < authenticationGesture.length; i++) {
+    const finger = ConvertFunctions.convertFingerToNum(authenticationGesture[i][0]);
+    const curl = ConvertFunctions.convertCurlToNum(authenticationGesture[i][1]);
+    const direction = ConvertFunctions.convertDirectionToNum(authenticationGesture[i][2]);
+    authenticationGestureNew.addCurl(finger, curl, 1.0);
+    authenticationGestureNew.addDirection(finger, direction, 1.0);
+  }
 
   // // Thumb
   //   okGesture.addCurl(fp.Finger.Thumb, fp.FingerCurl.HalfCurl, 0.5);
@@ -72,25 +81,7 @@ const WebCamSection: FC<WebCamSectionProps> = ({ updateGesture }) => {
   //   okGesture.addCurl(fp.Finger.Pinky, fp.FingerCurl.NoCurl, 1.0);
   //   okGesture.addDirection(fp.Finger.Pinky, fp.FingerDirection.VerticalUp, 1.0);
 
-  ///////// NEW STUFF ADDED STATE HOOK
 
-
-  // let net: any;
-  // const loadModel = async () => {
-  //   net = await handpose.load();
-  //   console.log("Handpose model loaded.");
-  //   setIsLoading(false);
-  // }
-
-
-  // const runHandpose = async () => {
-  //   const net = await handpose.load();
-  //   console.log("Handpose model loaded.");
-  //   //  Loop and detect hands
-  //   setInterval(() => {
-  //     detect(net);
-  //   }, 10);
-  // };
 
   const runDetection = async () => {
     setHasStarted(true)
@@ -99,12 +90,11 @@ const WebCamSection: FC<WebCamSectionProps> = ({ updateGesture }) => {
     console.log("Handpose model loaded.");
     //  Loop and detect hands
    
-    const gesture = await detect(net);
+    const gestureGuess = await detect(net);
     
-    console.log(gesture)
+    console.log(gestureGuess)
     setDetecting(false);
-
-    updateGesture(gesture);
+    passUpGestureGuess(gestureGuess)
   
   }
 
@@ -113,31 +103,6 @@ const WebCamSection: FC<WebCamSectionProps> = ({ updateGesture }) => {
   //   console.log(response);
   // };
 
-  // const detectPosition = async (net: any) => {
-  //   if (webcamRef.current !== null) {
-  //     if (
-  //       typeof webcamRef.current !== "undefined" &&
-  //       webcamRef.current !== null &&
-  //       webcamRef?.current?.video?.readyState === 4
-  //     ) {
-  //       // Get Video Properties
-  //       const video = webcamRef.current.video;
-  //       const videoWidth = webcamRef.current.video.videoWidth;
-  //       const videoHeight = webcamRef.current.video.videoHeight;
-
-  //       // Set video width
-  //       webcamRef.current.video.width = videoWidth;
-  //       webcamRef.current.video.height = videoHeight;
-
-  //       // Set canvas height and width
-
-  //       // Make Detections
-  //       const hand = await net.estimateHands(video);
-  //       console.log(hand);
-  //       return hand;
-  //     }
-  //   }
-  // }
 
   const detect = async (net: any) => {
     // Check data is available
@@ -161,14 +126,16 @@ const WebCamSection: FC<WebCamSectionProps> = ({ updateGesture }) => {
         const hand = await net.estimateHands(video);
 
         ///////// NEW STUFF ADDED GESTURE HANDLING
+        let guess;
 
         if (hand.length > 0) {
           const GE = new fp.GestureEstimator([
             fp.Gestures.VictoryGesture,
-            fp.Gestures.ThumbsUpGesture
+            fp.Gestures.ThumbsUpGesture,
+            authenticationGestureNew
           ]);
           const gesture = await GE.estimate(hand[0].landmarks, 6.5);
-          // console.log(gesture.poseData);
+          console.log(gesture);
           if (gesture.gestures !== undefined && gesture.gestures.length > 0) {
             // console.log(gesture.gestures);
 
@@ -178,9 +145,10 @@ const WebCamSection: FC<WebCamSectionProps> = ({ updateGesture }) => {
             const maxConfidence = confidence.indexOf(
               Math.max.apply(null, confidence)
             );
-            // console.log(gesture.gestures[maxConfidence].name);
+            console.log(gesture.gestures[maxConfidence].name);
+            guess = gesture.gestures[maxConfidence].name
           }
-          return gesture.poseData;
+          return guess;
         }
 
 
@@ -204,7 +172,7 @@ const WebCamSection: FC<WebCamSectionProps> = ({ updateGesture }) => {
     if (isDetecting) {
       return <h2 className={styles.isLoading}>Detecting...</h2>
     }
-    return <h2 className={styles.isLoading}>Accepted!</h2> 
+    return <h2 className={styles.isLoading}>Captured!</h2> 
   }
 
   return (
@@ -236,4 +204,4 @@ const WebCamSection: FC<WebCamSectionProps> = ({ updateGesture }) => {
   );
 };
 
-export default WebCamSection;
+export default Step3WebCam;

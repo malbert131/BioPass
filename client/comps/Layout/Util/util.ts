@@ -35,7 +35,12 @@ const Util = {
     console.log("Sent");
   },
 
-  
+  async getGesture() {
+    const res = await axios.get(`${baseUrl}/getGesture`)
+    console.log(res)
+    return res.data.gesture
+  },
+
 
   async startFaceRecog(imageData: string) {
 

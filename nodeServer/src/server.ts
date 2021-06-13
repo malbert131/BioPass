@@ -78,6 +78,7 @@ app.post('/authenticateAudio', upload.single('soundBlob'), (req, res, next) => {
   
 })
 
+
 app.post('/sendGesture', (req, res, next) => {
   try {
     const gesture = req.body
@@ -88,6 +89,21 @@ app.post('/sendGesture', (req, res, next) => {
   }
   
 
+})
+
+app.get('/getGesture', (req, res, next) => {
+  try {
+    // get gesture form mongo
+    const gesture = [ ["Thumb", "No Curl", "Diagonal Up Right"],
+     ["Index", "No Curl", "Diagonal Up Right"],
+     ["Middle", "No Curl", "Vertical Up"],
+     ["Ring", "No Curl", "Vertical Up"],
+     ["Pinky", "No Curl", "Vertical Up"]]
+    
+    res.status(200).send({gesture: gesture})
+  } catch (error) {
+    next(error)
+  }
 })
  
 app.listen(PORT, () => {
