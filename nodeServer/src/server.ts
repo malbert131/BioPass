@@ -7,17 +7,7 @@ import fromFileSTT from "./stt_verification";
 const {exec} = require('child_process');
 
 //converts audio file to required format of 16000 HZ, 1 channel, 16 bit, PCM Encoded
-const executeWavCommand = async () => {
-    const input = "./pre-executed.mp3"
-    const output = "./post-executed.wav"
 
-    const cmd = `ffmpeg -i ${input} -acodec pcm_s16le -ar 16000 -ac 1 ${output}`;
-    await exec(cmd, (error) => {
-        if (error) {
-            console.log("error", error.message)
-        }
-    })
-}
 
 const express = require("express");
 const app = express();
@@ -75,7 +65,16 @@ app.post("/enroll", upload.single("soundBlob"), async (req, res, next) => {
       Buffer.from(new Uint8Array(req.file.buffer))
     ); // write the blob to the server as a file
     
-    await executeWavCommand()
+    const input = "./pre-executed.mp3"
+    const output = "./post-executed.wav"
+
+    const cmd = `ffmpeg -i ${input} -acodec pcm_s16le -ar 16000 -ac 1 -y ${output}`;
+      exec(cmd, (error) => {
+          if (error) {
+              console.log("error", error.message)
+          }
+      })
+
     //enroll function
     const voiceID = await enroll();
 
@@ -115,7 +114,16 @@ app.post(
         Buffer.from(new Uint8Array(req.file.buffer))
       ); // write the blob to the server as a file
 
-      await executeWavCommand()
+      const input = "./pre-executed.mp3"
+    const output = "./post-executed.wav"
+
+    const cmd = `ffmpeg -i ${input} -acodec pcm_s16le -ar 16000 -ac 1 -y ${output}`;
+      exec(cmd, (error) => {
+          if (error) {
+              console.log("error", error.message)
+          }
+      })
+
       // Then call the methods
 
       const uuid = req.query.uuid;
@@ -182,7 +190,7 @@ app.get("/getUuid", (req, res, next) => {
         next(err);
       } else {
         console.log("HERE", results);
-        res.status(200).send({ _id: results._id });
+        res.status(200).send({ uuid: results._id });
       }
     });
   } catch (error) {

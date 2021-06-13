@@ -1,5 +1,3 @@
-import { exec } from "child_process";
-// import executeWavCommand from "./exec";
 import { SPEECH_REGION, SPEECH_SUBSCRIPTION_KEY } from "./var";
 
 //require variables and configuration
@@ -13,13 +11,17 @@ let verify_file = "post-executed.wav"
 //Speech-to-Text For Wav File
 function fromFileSTT() {
     let audioConfig = sdk.AudioConfig.fromWavFileInput(fs.readFileSync(verify_file));
+    
     let recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
+  
     let text : string | null = null
 
     recognizer.recognizeOnceAsync(result => {
-        console.log(`RECOGNIZED: Text=${result.text}`);
-        text = result.text
-        recognizer.close();
+    
+      console.log(`RECOGNIZED: Text=${result.text}`);
+      text = result.text
+
+        // recognizer.close();
     });
 
     return text

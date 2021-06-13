@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import styles from "../../../../styles/LoginSteps/Step1/Step1Form.module.css"
 import { useRouter } from 'next/router'
 import Util from '../../Util/util';
+import useSetUuid from "../../Util/useSetUuid";
 
 
 interface FormValues {
@@ -22,10 +23,8 @@ const Step1Form: FC = () => {
 
   const submitForm = async (data: FormValues) => {
     // Send data to the api
-    console.log(data);
-    const id = await Util.getUuid(data);
-    console.log(id)
-    // Save to session storate when yoiu get a chance
+    console.log(data.email);
+    await useSetUuid(data.email)
     router.push(nextHref)
   };
 
