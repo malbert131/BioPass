@@ -28,7 +28,7 @@ face_client = FaceClient(FACE_ENDPOINT, CognitiveServicesCredentials(FACE_ID_SUB
 
 def verification(PERSON_GROUP_ID, PERSON_ID):
     # Formats Input Image
-    input_image = formatImages('./IMG_1241.JPG')
+    input_image = formatImages('./authenticationFace.jpg')
 
     # Detects Face in Image and Returns ID
     detected_face = face_client.face.detect_with_stream(input_image, detection_model='detection_03')

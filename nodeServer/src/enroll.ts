@@ -41,8 +41,8 @@ async function enroll() {
         console.log ("Error:\n" + error);
     }
 
-    //returns voice profile
-    return profile;
+    //returns voice profileId
+    return profile.profileId;
 }
 
 //Adds required audio to enrollment profile

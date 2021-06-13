@@ -10,6 +10,7 @@ import base64
 from skimage.io import imsave
 import urllib
 from addPerson import add_Person
+from verification import verification
 
 
 server = Flask(__name__)
@@ -44,7 +45,8 @@ def authenticateFace():
 
     personId = request.args.get('personId')
 
-    confidenceScore = 0.55;
+    # Calling verification function and getting confidence score
+    confidenceScore = verification("007", personId)
 
     if (confidenceScore > 0.65):
         return jsonify({'isAuthenticated': True})

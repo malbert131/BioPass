@@ -18,8 +18,14 @@ const fs = require('fs');
 
 const PORT = 4000
 
+//importing mongoose Models
+const Person = require('./models/Person.ts')
+
+
+
 // @ts-ignore
 const mongoose = require('mongoose');
+
 
 //MongoDB Connection
 mongoose.connect(config.get("uri"), {
@@ -39,7 +45,7 @@ app.use(morgan('dev'))
 app.use(errorhandler())
 app.use(bodyParser.json())
 
-
+// enroll audio
 app.post('/enroll', upload.single('soundBlob'), async (req, res, next) => {
   try {
     let uploadLocation = "./pre-executed.mp3"// where to save the file to. make sure the incoming name has a .wav extension
@@ -51,9 +57,17 @@ app.post('/enroll', upload.single('soundBlob'), async (req, res, next) => {
     fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer)));// write the blob to the server as a file
 
     //enroll function
-    await enroll()
+    const voiceID = await enroll()
 
-    // Then call the mothods
+    const id = req.query.uuid
+    Person.findOneAndUpdate({uuid : id }, { voiceProfile : { profileId : voiceID, profileType : 2, passphrase : passPhrase}}, (err) => {
+      if (err) {
+        next(err)
+      } else {
+        res.sendStatus(200)
+      }
+    })
+    // Then call the methods
     res.sendStatus(200); //send back that everything went ok
     
   } catch (err: any) {
@@ -81,8 +95,13 @@ app.post('/authenticateAudio', upload.single('soundBlob'), (req, res, next) => {
 app.post('/sendInitialData', (req, res, next) => {
   try {
     const { name, email } = req.body;
+
+    const new_user = new Person({name: name, email : email, voiceProfile : null, face : null, gesture : null})
+    new_user.save();
+
+    res.sendStatus(201)
   } catch (error) {
-    
+    next(error)
   }
 })
 
@@ -106,13 +125,20 @@ app.post('/sendGesture', (req, res, next) => {
   try {
     const gesture = req.body
     // save gesture in mongo
-    res.sendStatus(200);
+    const id = req.query.uuid // need id
+    Person.findOneAndUpdate({uuid : id }, { gesture : {fingerPositions : gesture }}, (err) => {
+      if (err) {
+        next(err)
+      } else {
+        res.sendStatus(200)
+      }
+    })
+
   } catch (error) {
     next(error)
   }
-  
-
 })
+
 
 app.get('/getGesture', (req, res, next) => {
   try {
@@ -131,7 +157,7 @@ app.get('/getGesture', (req, res, next) => {
 
 app.get("/getPersonId", (req, res, next) => {
   try {
-    // get person Ide form mongo
+    // get person Ide from mongo
 
     const uuid = req.query.uuid
 

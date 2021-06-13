@@ -1,13 +1,13 @@
 // @ts-ignore
 const mongoose = require('mongoose');
-const audio = require('./Audio.ts')
-const AudioSchema = audio.AudioSchema
-const face = require('./Face.ts')
-// @ts-ignore
-const FaceSchema = face.FaceSchema
-const gesture = require('./Gesture.ts')
-// @ts-ignore
-const GestureSchema = gesture.GestureSchema
+// const audio = require('./Audio.ts')
+// const AudioSchema = audio.AudioSchema
+// const face = require('./Face.ts')
+// // @ts-ignore
+// const FaceSchema = face.FaceSchema
+// const gesture = require('./Gesture.ts')
+// // // @ts-ignore
+// const GestureSchema = gesture.GestureSchema
 
 // @ts-ignore
 const Schema = mongoose.Schema;
@@ -20,9 +20,17 @@ const PersonSchema = new Schema({
     uuid: ObjectId,
     email: String,
     name: String,
-    voiceProfile: AudioSchema,
-    face: FaceSchema,
-    gesture: GestureSchema
+    voiceProfile: {
+      profileId : String,
+      profileType : Number,
+      passphrase : String
+    },
+    face : {
+      personID: String
+    },
+    gesture: {
+      fingerPositions: [[String]]
+    }
   });
 
 const Person = mongoose.model('Person', PersonSchema);
