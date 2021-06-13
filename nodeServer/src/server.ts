@@ -98,7 +98,7 @@ app.post('/authenticateAudio', upload.single('soundBlob'), async (req, res, next
     })
 
     const pass = voiceProfile.passphrase.toLowerCase()
-    const audioProfile = { privId: voiceProfile.profileId, privProfileType : 2}
+    const audioProfile = { privId: voiceProfile.profileId, privProfileType : 2} //key names may be profileId and profileType if error arises
 
     // calling authenticate function
     const confidence_score = await authentication(audioProfile)
