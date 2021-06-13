@@ -15,9 +15,9 @@ interface PasswordProps {
 
 const Password: FC<PasswordProps> = ({ website, userName, password, id }) => {
   
-  const deletePassword = () => {
+  const deletePassword = async () => {
 
-    Util.deletePassword(id)
+    await Util.deletePassword(id)
 
     window.location.reload();
   }
@@ -39,8 +39,8 @@ const Password: FC<PasswordProps> = ({ website, userName, password, id }) => {
   }
 
   const router = useRouter();
-  const editPassword = () => {
-    Util.deletePassword(id)
+  const editPassword = async () => {
+    await Util.deletePassword(id)
     router.push({ pathname: '/passwords/add-password', query: { website: website, userName: userName, password: password} })
   }
 

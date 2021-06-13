@@ -110,6 +110,9 @@ const Util = {
   async deletePassword(id: string) {
     const uuid = await useGetUuid();
 
+    console.log(id)
+    console.log(uuid)
+
     await axios.post(`${baseUrl}/deletePassword`, {passId: id, uuid: uuid})
   },
 
