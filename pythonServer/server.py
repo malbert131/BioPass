@@ -29,9 +29,9 @@ def enrollFace():
         f.write(response.file.read())
 
     # Need to add database values (NAME and PERSON_GROUP_ID) for arguments
-    add_Person("matthew", "007")
+    personID = add_Person("matthew", "007")
 
-    return "DaBaby"
+    return jsonify({"personId": personID})
 
 @server.route('/authenticateFace', methods=["GET", 'POST'])
 def authenticateFace():

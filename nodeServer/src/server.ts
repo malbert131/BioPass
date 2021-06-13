@@ -145,6 +145,14 @@ app.get("/getPersonId", (req, res, next) => {
     
   }
 })
+
+app.post("/sendFacePersonId", (req, res, next) => {
+  const personId = req.body.faceRecognitionId
+
+  console.log(personId)
+
+  res.sendStatus(201)
+})
  
 app.listen(PORT, () => {
   console.log('The server is listening on port: ' + PORT);

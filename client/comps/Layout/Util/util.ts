@@ -82,8 +82,10 @@ const Util = {
 
   async startFaceRecog(imageData: string) {
 
-    await axios.post(`${baseUrlPython}/enrollFace`, {imageSrc: imageData})
-    console.log("Sent");
+    const response = await axios.post(`${baseUrlPython}/enrollFace`, {imageSrc: imageData})
+    console.log(response.data.personId);
+    
+    await axios.post(`${baseUrl}/sendFacePersonId`, {faceRecognitionId: response.data.personId})
   }
 }
 

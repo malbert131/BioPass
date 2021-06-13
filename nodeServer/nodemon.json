@@ -1,6 +1,6 @@
 {
-    "watch": ["./server.ts"],
+    "watch": ["./src/server.ts"],
     "ext": "ts",
-    "ignore": ["./server.js"],
-    "exec": "npx tsc ./server.ts; node ./server.js"    
+    "ignore": ["./src/server.js"],
+    "exec": "npx tsc ./src/server.ts; node ./src/server.js"    
   }
