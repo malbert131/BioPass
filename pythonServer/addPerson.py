@@ -27,10 +27,11 @@ face_client = FaceClient(FACE_ENDPOINT, CognitiveServicesCredentials(FACE_ID_SUB
 # Creates Person object in Person Group
 def add_Person(NAME, PERSON_GROUP_ID):
     new_user = face_client.person_group_person.create(PERSON_GROUP_ID, NAME)
-    image = formatImages('./IMG_1240.JPG') # ADD PATH TO ENROLLMENT IMAGE
+    image = formatImages('./enrollFace.jpg') # ADD PATH TO ENROLLMENT IMAGE
     # Adds Enrollment Image to New User Profile (aka new Person Object)
     face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, new_user.person_id, image, detection_model='detection_03')
     train_Person_Group(PERSON_GROUP_ID)
+    print(new_user.person_id)
     return new_user.person_id
 
 
@@ -60,7 +61,7 @@ def train_Person_Group(PERSON_GROUP_ID):
         time.sleep(5)
 
 
-# # print(add_Person("test", "007"))
+# # # print(add_Person("test", "007"))
 
-# face_client.person_group_person.delete("007", "e80e440c-86f8-4ba2-8a6f-a6b913ae5ed1")
-# print(face_client.person_group_person.get("007", "e80e440c-86f8-4ba2-8a6f-a6b913ae5ed1"))
+# face_client.person_group_person.delete("007", "0cbd967a-19f3-4d15-b9f6-5067af673186")
+# print(face_client.person_group_person.get("007", "0cbd967a-19f3-4d15-b9f6-5067af673186"))

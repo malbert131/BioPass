@@ -1,3 +1,5 @@
+import enroll from "./enroll";
+
 const express = require('express')
 const app = express()
 
@@ -38,15 +40,18 @@ app.use(errorhandler())
 app.use(bodyParser.json())
 
 
-app.post('/enroll', upload.single('soundBlob'), (req, res, next) => {
+app.post('/enroll', upload.single('soundBlob'), async (req, res, next) => {
   try {
-    let uploadLocation = "./src/pre-executed.mp3"// where to save the file to. make sure the incoming name has a .wav extension
+    let uploadLocation = "./pre-executed.mp3"// where to save the file to. make sure the incoming name has a .wav extension
     //  let uploadLocation = "./ThisMadeIt.mp3"// where to save the file to. make sure the incoming name has a .wav extension
 
     const passPhrase = req.query.passPhrase
     console.log(passPhrase);
 
-    fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
+    fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer)));// write the blob to the server as a file
+
+    //enroll function
+    await enroll()
 
     // Then call the mothods
     res.sendStatus(200); //send back that everything went ok
@@ -59,7 +64,7 @@ app.post('/enroll', upload.single('soundBlob'), (req, res, next) => {
 
 app.post('/authenticateAudio', upload.single('soundBlob'), (req, res, next) => {
   try {
-    let uploadLocation = "./src/pre-executed.mp3"// where to save the file to. make sure the incoming name has a .wav extension
+    let uploadLocation = "./pre-executed.mp3"// where to save the file to. make sure the incoming name has a .wav extension
     //  let uploadLocation = "./ThisMadeIt.mp3"// where to save the file to. make sure the incoming name has a .wav extension
 
     fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file

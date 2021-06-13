@@ -16,6 +16,7 @@ scikit-image = "*"
 flask = "*"
 flask-cors = "*"
 opencv-python = "*"
+cors = "*"
 
 [requires]
 python_version = "3.8"

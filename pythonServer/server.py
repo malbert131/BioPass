@@ -9,6 +9,7 @@ import cv2
 import base64
 from skimage.io import imsave
 import urllib
+from addPerson import add_Person
 
 
 server = Flask(__name__)
@@ -26,6 +27,9 @@ def enrollFace():
     response = urllib.request.urlopen(fileUri)
     with open ("enrollFace.jpg", 'wb') as f:
         f.write(response.file.read())
+
+    # Need to add database values (NAME and PERSON_GROUP_ID) for arguments
+    add_Person("matthew", "007")
 
     return "DaBaby"
 

@@ -76,8 +76,5 @@ function GetAudioConfigFromFile(file) {
     return sdk.AudioConfig.fromStreamInput(pushStream);
 }
 
-async function start() {
-    console.log(await enroll())
-}
-start()
+
 export default enroll;

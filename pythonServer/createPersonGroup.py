@@ -31,7 +31,7 @@ def create_Person_Group(PERSON_GROUP_ID):
     face_client.person_group.create(person_group_id=PERSON_GROUP_ID, name=PERSON_GROUP_ID)
 
 
-create_Person_Group("007")
+# # create_Person_Group("007")
 # # Delete Person Group
 # # Use Later
 # face_client.person_group.delete(person_group_id="007")
