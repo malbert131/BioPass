@@ -7,12 +7,13 @@ A customizable web-based password manager that utilizes biometric authentication
 
 client folder holds the source code for the application front-end
 
+  - TensorFlow gesture recognition is located in **Step3WebCam.tsx** in BioPass/client/comps/Layout/loginSteps/Step3/
+
 nodeServer folder holds the JavaScript API and source code for the voice authentication and text-to-speech algorithms 
 
   - A new voice profile for speaker verification is enrolled into the database in **enroll.ts**
     - used when user registers a new account
-  - TensorFlow gesture recognition is located in **Step3WebCam.tsx** in BioPass/client/comps/Layout/loginSteps/Step3/
-
+  
   - Voice profile is matched against inputted audio on sign-in page in **authenticate.ts**
     - This is the main voice authentication algorithm and returns accepted or denied depending on if the inputted audio matches the previously enrolled voice profile
 
