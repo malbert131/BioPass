@@ -9,6 +9,11 @@ client folder holds the source code for the application front-end
 
 nodeServer folder holds the JavaScript API and source code for the voice authentication and text-to-speech algorithms 
 
+
 pythonServer folder holds the flask API and source code for the face verification algorithm
 
-
+  - face profile for facial recognition is enrolled in **addPerson.py**
+    - face profile is enrolled when user registers a new account
+  
+  - face profile is compared to inputted image in **verification.py**
+    - Facial verification for sign-in page is done in this algorithm
