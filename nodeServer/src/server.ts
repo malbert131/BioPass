@@ -280,6 +280,44 @@ app.post("/deletePassword", (req, res, next) => {
   res.sendStatus(201);
 });
 
+app.get("/getAllPasswords", (req, res, next) => {
+  try {
+    const uuid = req.query.uuid;
+
+
+    Person.find({ _id: uuid }, (error, results) => {
+      if (error) {
+        next(error)
+      } else {
+        const passwords = results.passwords
+        res.status(200).send({ passwords: passwords });
+      }
+    })
+
+
+
+    
+
+  } catch (error) {
+    next(error)
+  }
+
+});
+
+app.post("/createNewPassword", (req, res, next) => {
+  try {
+    const uuid = req.query.uuid;
+    const { website, userName, password } = req.body;
+
+    // call mongo to create
+
+    res.sendStatus(201)
+  } catch (error) {
+    next(error)
+  }
+
+})
+
 app.listen(PORT, () => {
   console.log("The server is listening on port: " + PORT);
 });
