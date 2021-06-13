@@ -2,7 +2,9 @@ import Util from './util'
 
 
 async function useSetUuid(email: string) {
-    const uuid = await Util.getUuid(email)
+    console.log(email)
+  const uuid = await Util.getUuid(email)
+  console.log(uuid)
     sessionStorage.setItem('uuid', uuid);
 }
 

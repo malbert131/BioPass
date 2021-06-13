@@ -2,16 +2,20 @@ const axios = require('axios');
 
 const baseUrl = "http://localhost:4000"
 const baseUrlPython = "http://127.0.0.1:5000"
+import useGetUuid from "./useGetUuid";
+import useSetUuid from "./useSetUuid";
 
 const Util = {
   
-  async enrollAudio (audioData: FormData, keyWord: string) {
+  async enrollAudio(audioData: FormData, keyWord: string) {
+    const uuid = await useGetUuid();
     await axios.post(`${baseUrl}/enroll`, audioData, {
       headers: {
         'enctype': 'multipart/form-data'
       },
       params: {
-        passPhrase: keyWord
+        passPhrase: keyWord,
+        uuid: uuid
       },
     })
 
@@ -19,9 +23,13 @@ const Util = {
   },
 
   async authenticateAudio(audioData: FormData) {
+    const uuid = await useGetUuid();
     const response = await axios.post(`${baseUrl}/authenticateAudio`, audioData, {
       headers: {
         'enctype': 'multipart/form-data'
+      },
+      params: {
+        uuid: uuid
       }
     })
 
@@ -30,35 +38,45 @@ const Util = {
 },
 
   async sendGesture(gestureData: string[][]) {
+    const uuid = await useGetUuid();
     
-    await axios.post(`${baseUrl}/sendGesture`, gestureData)
+    await axios.post(`${baseUrl}/sendGesture`, gestureData, {
+      params: {
+        uuid: uuid
+      }
+    })
     console.log("Sent");
   },
 
   async getGesture() {
-    const res = await axios.get(`${baseUrl}/getGesture`)
+    const uuid = await useGetUuid();
+
+    const res = await axios.get(`${baseUrl}/getGesture`, {
+      params: {
+        uuid: uuid
+      }
+    })
     console.log(res)
     return res.data.gesture
   },
 
   async sendInitialData(data: any) {
     await axios.post(`${baseUrl}/sendInitialData`, data)
+    await useSetUuid(data.email)
   },
 
   async getUuid(email: any) {
-    console.log("HERE")
     const res = await axios.get(`${baseUrl}/getUuid`, {
       params: {
         email: email
       }
     })
-    console.log("HERE")
     return res.data.uuid
   },
 
   async faceAuthentication(imageData: string) {
     // MAKE GET UUID FUNCTION
-    const uuid = "jlnfwjeknfwef"
+    const uuid = await useGetUuid();
 
     const response = await axios.get(`${baseUrl}/getPersonId`, {
       params: {

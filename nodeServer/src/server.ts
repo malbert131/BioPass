@@ -141,7 +141,8 @@ app.get('/getUuid', (req, res, next) => {
       if (err) {
         next(err)
       } else {
-        res.status(200).send({uuid : results.uuid})
+        console.log("HERE", results)
+        res.status(200).send({uuid : results._id})
       }
     })
 
