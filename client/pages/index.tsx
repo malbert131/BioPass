@@ -29,7 +29,7 @@ export default function Home() {
           </Link>
           
           <div className={styles.belowText}>
-              Don't have and account? <br/> Make one!
+              Don't have an account? <br/> Make one!
           </div>
         </div>
       
@@ -40,7 +40,7 @@ export default function Home() {
             </a>
           </Link>
           <div className={styles.belowText}>
-              Have and account?<br/> Login in!
+              Have an account?<br/> Login!
           </div>
         </div>
 
