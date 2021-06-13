@@ -121,6 +121,7 @@ app.get('/getUuid', (req, res, next) => {
 })
 
 
+
 app.post('/sendGesture', (req, res, next) => {
   try {
     const gesture = req.body
@@ -178,6 +179,15 @@ app.post("/sendFacePersonId", (req, res, next) => {
   console.log(personId)
 
   res.sendStatus(201)
+})
+
+app.post("/deletePassword", (req, res, next) => {
+  const { passId, uuid } = req.body
+
+  console.log(passId, uuid)
+
+  res.sendStatus(201);
+  
 })
  
 app.listen(PORT, () => {
