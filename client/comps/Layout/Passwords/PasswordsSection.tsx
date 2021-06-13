@@ -4,7 +4,7 @@ import Password from './Password';
 import Util from '../Util/util';
 
 interface password {
-  id: string;
+  _id: string;
   website: string;
   userName: string;
   password: string;
@@ -29,8 +29,8 @@ const PasswordsSection: FC = () => {
       </div>
 
       <div className={styles.passwordsContainer}>
-        {passwordsData && passwordsData.map(({website, userName, password, id}) => {
-          return <Password key={id} id={id} website={website} userName={userName} password={password}/>
+        {passwordsData && passwordsData.map(({website, userName, password, _id}) => {
+          return <Password key={_id} id={_id} website={website} userName={userName} password={password}/>
         })}
       </div>
     </div>

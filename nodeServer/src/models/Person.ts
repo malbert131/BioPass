@@ -14,6 +14,7 @@ const Schema = mongoose.Schema;
 // @ts-ignore
 const ObjectId = Schema.ObjectId;
 
+//@ts-ignore
 const PasswordSchema = new Schema({
   website: String,
   userName: String,
@@ -39,4 +40,5 @@ const PersonSchema = new Schema({
 });
 
 const Person = mongoose.model("Person", PersonSchema);
+
 module.exports = Person;

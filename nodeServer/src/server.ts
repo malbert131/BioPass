@@ -4,6 +4,7 @@ import authentication from "./authenticate";
 import fromFileSTT from "./stt_verification";
 // import executeWavCommand from './exec';
 
+
 const {exec} = require('child_process');
 
 //converts audio file to required format of 16000 HZ, 1 channel, 16 bit, PCM Encoded
@@ -29,6 +30,7 @@ const PORT = 4000;
 
 //importing mongoose Models
 const Person = require("./models/Person.ts");
+const Password = require("./models/Password.ts")
 
 // @ts-ignore
 const mongoose = require("mongoose");
@@ -164,12 +166,15 @@ app.post("/sendInitialData", (req, res, next) => {
   try {
     const { name, email } = req.body;
 
+
     const new_user = new Person({
       name: name,
       email: email,
       voiceProfile: { profileId: "123", profileType: "2", passphrase: "hello" },
       face: { personID: "456" },
       gesture: { fingerPositions: [["hello"], ["test"]] },
+      passwords: []
+
     });
     new_user.save();
 
@@ -283,9 +288,32 @@ app.post("/sendFacePersonId", (req, res, next) => {
 app.post("/deletePassword", (req, res, next) => {
   const { passId, uuid } = req.body;
 
-  console.log(passId, uuid);
 
-  res.sendStatus(201);
+  Person.find({ _id: uuid }, (error, results) => {
+    if (error) {
+      next(error)
+    } else {
+      const passwords = results[0].passwords
+      const filtered = passwords.filter(val => {
+        return val._id != passId
+      })
+        
+      console.log(filtered)
+    
+
+      Person.findOneAndUpdate(
+        { _id: uuid },
+        { passwords: filtered},
+        (err) => {
+          if (err) {
+            next(err);
+          } else {
+            res.sendStatus(201);
+          }
+        }
+      );
+    }
+  })
 });
 
 app.get("/getAllPasswords", (req, res, next) => {
@@ -297,14 +325,11 @@ app.get("/getAllPasswords", (req, res, next) => {
       if (error) {
         next(error)
       } else {
-        const passwords = results.passwords
+        const passwords = results[0].passwords
         res.status(200).send({ passwords: passwords });
       }
     })
 
-
-
-    
 
   } catch (error) {
     next(error)
@@ -317,9 +342,21 @@ app.post("/createNewPassword", (req, res, next) => {
     const uuid = req.query.uuid;
     const { website, userName, password } = req.body;
 
-    // call mongo to create
+    const newPass = new Password({ website: website, userName: userName, password: password })
+    
+    Person.findOneAndUpdate(
+      { _id: uuid },
+      { $push: {passwords: newPass} },
+      (err) => {
+        if (err) {
+          next(err);
+        } else {
+          res.sendStatus(201);
+        }
+      }
+    );
 
-    res.sendStatus(201)
+    // call mongo to create
   } catch (error) {
     next(error)
   }
