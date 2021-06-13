@@ -19,4 +19,11 @@
 //     }
 // }
 
-// start()
+// // start()
+// async function deleteProfile() {
+// await new Promise ((resolve, reject) => {
+//     client.deleteProfileAsync ({profileId : , profileType : 2}, result => { resolve(result); }, error => { reject(error); });
+// });
+// console.log("DELETED")
+// }   
+// deleteProfile()
