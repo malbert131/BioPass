@@ -89,6 +89,29 @@ app.post('/authenticateAudio', upload.single('soundBlob'), (req, res, next) => {
   
 })
 
+app.post('/sendInitialData', (req, res, next) => {
+  try {
+    const { name, email } = req.body;
+  } catch (error) {
+    
+  }
+})
+
+app.get('/getUuid', (req, res, next) => {
+  try {
+    // return uuid form mongo with email
+    const email = req.query.email
+
+    console.log(email)
+
+    const id = "3jkfbn2jbfo32bfo2bfb23fb23uof23f"
+
+    res.status(201).send({uuid: id})
+  } catch (error) {
+    next(error)
+  }
+})
+
 
 app.post('/sendGesture', (req, res, next) => {
   try {
@@ -114,6 +137,23 @@ app.get('/getGesture', (req, res, next) => {
     res.status(200).send({gesture: gesture})
   } catch (error) {
     next(error)
+  }
+})
+
+app.get("/getPersonId", (req, res, next) => {
+  try {
+    // get person Ide form mongo
+
+    const uuid = req.query.uuid
+
+    console.log(uuid)
+
+    const id = "bbfjkwefb3bf23bfb32ufb2u3ifb"
+
+    res.send(200).send({personId: id})
+    
+  } catch (error) {
+    
   }
 })
  

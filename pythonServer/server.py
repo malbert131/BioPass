@@ -33,5 +33,25 @@ def enrollFace():
 
     return "DaBaby"
 
+@server.route('/authenticateFace', methods=["GET", 'POST'])
+def authenticateFace():
+
+    fileUri = request.get_json(force=True)['imageSrc']
+    
+    response = urllib.request.urlopen(fileUri)
+    with open ("authenticationFace.jpg", 'wb') as f:
+        f.write(response.file.read())
+
+    personId = request.args.get('personId')
+
+    confidenceScore = 0.55;
+
+    if (confidenceScore > 0.65):
+        return jsonify({'isAuthenticated': True})
+
+    return jsonify({'isAuthenticated': False})
+
+
+
 if __name__ == '__main__':
     server.run(debug=True)
