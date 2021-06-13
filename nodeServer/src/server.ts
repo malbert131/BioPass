@@ -57,6 +57,22 @@ app.post('/enroll', upload.single('soundBlob'), (req, res, next) => {
   
 })
 
+app.post('/authenticateAudio', upload.single('soundBlob'), (req, res, next) => {
+  try {
+    let uploadLocation = "./src/pre-executed.mp3"// where to save the file to. make sure the incoming name has a .wav extension
+    //  let uploadLocation = "./ThisMadeIt.mp3"// where to save the file to. make sure the incoming name has a .wav extension
+
+    fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
+
+    // Then call the mothods
+    res.status(200).send({authenticated: true}); //send back that everything went ok
+    
+  } catch (err: any) {
+    next(err)
+  }
+  
+})
+
 app.post('/sendGesture', (req, res, next) => {
   try {
     const gesture = req.body
