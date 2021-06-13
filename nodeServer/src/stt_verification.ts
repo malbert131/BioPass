@@ -22,12 +22,12 @@ function fromFileSTT() {
 
     return text
 }
-if (fromFileSTT() === "My voice is my passport, verify me") {
-    console.log("ACCESS GRANTED")
-}
-else {
-    console.log("FAILED")
-}
+// if (fromFileSTT() === "My voice is my passport, verify me") {
+//     console.log("ACCESS GRANTED")
+// }
+// else {
+//     console.log("FAILED")
+// }
 
 
 export default fromFileSTT;

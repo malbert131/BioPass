@@ -1,4 +1,7 @@
 import enroll from "./enroll";
+import { VoiceProfile } from 'microsoft-cognitiveservices-speech-sdk';
+import authentication from "./authenticate";
+import fromFileSTT from "./stt_verification";
 
 const express = require('express')
 const app = express()
@@ -76,16 +79,38 @@ app.post('/enroll', upload.single('soundBlob'), async (req, res, next) => {
   
 })
 
-app.post('/authenticateAudio', upload.single('soundBlob'), (req, res, next) => {
+app.post('/authenticateAudio', upload.single('soundBlob'), async (req, res, next) => {
   try {
     let uploadLocation = "./pre-executed.mp3"// where to save the file to. make sure the incoming name has a .wav extension
     //  let uploadLocation = "./ThisMadeIt.mp3"// where to save the file to. make sure the incoming name has a .wav extension
 
     fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
 
-    // Then call the mothods
-    res.status(200).send({authenticated: true}); //send back that everything went ok
-    
+    // Then call the methods
+    let voiceProfile;
+    const uuid = req.query.uuid
+    Person.findOne({uuid : uuid}, (err, results) => {
+      if (err) {
+        next(err)
+      } else {
+        voiceProfile = results.VoiceProfile
+      }
+    })
+
+    const pass = voiceProfile.passphrase.toLowerCase()
+    const audioProfile = { privId: voiceProfile.profileId, privProfileType : 2}
+
+    // calling authenticate function
+    const confidence_score = await authentication(audioProfile)
+
+    if (confidence_score > 0.60 && fromFileSTT().toLowerCase() === pass) { //maybe async and await for speech-to-text
+      console.log("PASSED VOICE AUTH")
+      res.status(200).send({authenticated: true}); //send back that everything went ok
+    }
+    else {
+      console.log("FAILED VOICE AUTH")
+      res.status(200).send({authenticated : false})
+    }
   } catch (err: any) {
     next(err)
   }
@@ -107,14 +132,19 @@ app.post('/sendInitialData', (req, res, next) => {
 
 app.get('/getUuid', (req, res, next) => {
   try {
-    // return uuid form mongo with email
+    // return uuid from mongo with email
     const email = req.query.email
 
     console.log(email)
 
-    const id = "3jkfbn2jbfo32bfo2bfb23fb23uof23f"
+    Person.findOne({email : email}, (err, results) => {
+      if (err) {
+        next(err)
+      } else {
+        res.status(200).send({uuid : results.uuid})
+      }
+    })
 
-    res.status(201).send({uuid: id})
   } catch (error) {
     next(error)
   }
@@ -142,14 +172,18 @@ app.post('/sendGesture', (req, res, next) => {
 
 app.get('/getGesture', (req, res, next) => {
   try {
-    // get gesture form mongo
-    const gesture = [ ["Thumb", "No Curl", "Diagonal Up Right"],
-     ["Index", "No Curl", "Diagonal Up Right"],
-     ["Middle", "No Curl", "Vertical Up"],
-     ["Ring", "No Curl", "Vertical Up"],
-     ["Pinky", "No Curl", "Vertical Up"]]
-    
-    res.status(200).send({gesture: gesture})
+    // get gesture from mongo
+    const uuid = req.query.uuid
+
+    Person.findOne({uuid : uuid}, (err, results) => {
+      if (err) {
+        next(err)
+      } else {
+        const gesture = results.gesture.fingerPositions
+        res.status(200).send({gesture : gesture})
+      }
+    })
+      
   } catch (error) {
     next(error)
   }
@@ -157,27 +191,43 @@ app.get('/getGesture', (req, res, next) => {
 
 app.get("/getPersonId", (req, res, next) => {
   try {
-    // get person Ide from mongo
-
+    // get person FACE ID from mongo
     const uuid = req.query.uuid
 
-    console.log(uuid)
-
-    const id = "bbfjkwefb3bf23bfb32ufb2u3ifb"
-
-    res.send(200).send({personId: id})
-    
+    Person.findOne({uuid : uuid}, (err, results) => {
+      if (err) {
+        next(err)
+      } else {
+        res.status(200).send({personId : results.face.personID})
+      }
+    })
   } catch (error) {
-    
+    next(error)
   }
 })
 
 app.post("/sendFacePersonId", (req, res, next) => {
+  try {
   const personId = req.body.faceRecognitionId
 
   console.log(personId)
 
+  const uuid = req.query.uuid
+  
+  Person.findOneAndUpdate({uuid : uuid }, { face : { personID : personId }}, (err) => {
+    if (err) {
+      next(err)
+    } else {
+      res.sendStatus(200)
+    }
+  })
+
+
   res.sendStatus(201)
+  }
+  catch (error) {
+    next(error)
+  }
 })
  
 app.listen(PORT, () => {

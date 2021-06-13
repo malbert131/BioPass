@@ -16,7 +16,7 @@ async function authentication(profile) {
         const speech_config = sdk.SpeechConfig.fromSubscription(subscription_key, region);
         const audio_config = GetAudioConfigFromFile(verify_file);
         const recognizer = new sdk.SpeakerRecognizer(speech_config, audio_config);
-        await SpeakerVerify(profile, recognizer);
+        return await SpeakerVerify(profile, recognizer);
     }
     catch(error) {
         console.log("ERROR", error)
@@ -33,6 +33,7 @@ async function SpeakerVerify(profile, recognizer)
         recognizer.recognizeOnceAsync (model, result => { resolve(result); }, error => { reject(error); });
     });
     console.log ("Verified voice profile for speaker: " + result.profileId + ". Score is: " + result.score + ".\n");
+    return result.score;
 }
 
 
