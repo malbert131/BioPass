@@ -3,6 +3,7 @@ import styles from "../../../styles/passwords/Password.module.css"
 import Link from "next/link"
 import eyeLogo from "./eye.png"
 import Util from '../Util/util';
+import { useRouter } from 'next/router';
 
 
 interface PasswordProps {
@@ -24,7 +25,7 @@ const Password: FC<PasswordProps> = ({ website, userName, password, id }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const changeStateOfPassword = () => {
-    const el = document.getElementById("password")
+    const el = document.getElementById(id)
 
     if (!isVisible) {
 
@@ -37,8 +38,14 @@ const Password: FC<PasswordProps> = ({ website, userName, password, id }) => {
     }
   }
 
+  const router = useRouter();
+  const editPassword = () => {
+    Util.deletePassword(id)
+    router.push({ pathname: '/passwords/add-password', query: { website: website, userName: userName, password: password} })
+  }
+
   return (
-    <div id="sectionWrapper" className={[styles.section, styles.borderClass].join(" ")}>
+    <div id="sectionWrapper" className={[styles.section, styles.border].join(" ")}>
 
       <div style={{width: "35%"}}>
         <div className={`${styles.spanWrapper} ${styles.hiddenText}`}>
@@ -59,13 +66,13 @@ const Password: FC<PasswordProps> = ({ website, userName, password, id }) => {
 
       <div style={{width: "27.5%"}}>
         <div className={[styles.spanWrapper, styles.passwordWrapper].join(" ")}>
-          <span id="password" className={[styles.blockSpan, styles.passwordHidden].join(" ")} >{ password }</span>
+          <span id={id} className={[styles.blockSpan, styles.passwordHidden].join(" ")} >{ password }</span>
           <img onClick={changeStateOfPassword } className={styles.eyeLogo} src={eyeLogo}></img>
         </div>
       </div>
 
       <div style={{width: "10%"}} className={styles.mutationsContainer}>
-        <span className={styles.mutation}>Edit</span>
+        <span onClick={editPassword}className={styles.mutation}>Edit</span>
         <span onClick={deletePassword}className={styles.mutation}>Remove</span>
       </div>
 

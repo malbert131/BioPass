@@ -107,8 +107,30 @@ const Util = {
   },
 
   async deletePassword(id: string) {
-    const uuid = "ljn32jkf3l2"
+    const uuid = await useGetUuid();
+
     await axios.post(`${baseUrl}/deletePassword`, {passId: id, uuid: uuid})
+  },
+
+  async getAllPasswords() {
+    const uuid = await useGetUuid();
+    const response = await axios.get(`${baseUrl}/getAllPasswords`, {
+      params: {
+        uuid: uuid
+      }
+    })
+    return response.data.passwords;
+  },
+
+  async createNewPassword(data: any) {
+    const uuid = await useGetUuid();
+
+    await axios.post(`${baseUrl}/createNewPassword`, data, {
+      params: {
+        uuid: uuid
+      }
+    })
+
   }
 }
 
