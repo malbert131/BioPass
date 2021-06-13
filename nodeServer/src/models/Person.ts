@@ -17,10 +17,9 @@ const ObjectId = Schema.ObjectId;
 
 
 const PersonSchema = new Schema({
-    uuid: ObjectId,
     email: String,
     name: String,
-    voiceProfile: {
+    voiceProfile : {
       profileId : String,
       profileType : Number,
       passphrase : String
@@ -28,7 +27,7 @@ const PersonSchema = new Schema({
     face : {
       personID: String
     },
-    gesture: {
+    gesture : {
       fingerPositions: [[String]]
     }
   });

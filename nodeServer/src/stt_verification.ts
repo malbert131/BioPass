@@ -1,3 +1,5 @@
+import { exec } from "child_process";
+// import executeWavCommand from "./exec";
 import { SPEECH_REGION, SPEECH_SUBSCRIPTION_KEY } from "./var";
 
 //require variables and configuration

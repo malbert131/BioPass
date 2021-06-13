@@ -29,8 +29,8 @@ def enrollFace():
     with open ("enrollFace.jpg", 'wb') as f:
         f.write(response.file.read())
 
-    # Need to add database values (NAME and PERSON_GROUP_ID) for arguments
-    personID = add_Person("007")
+    # Need to add database values (PERSON_GROUP_ID) for arguments
+    personID = add_Person("007", "davinci")
 
     return jsonify({"personId": personID})
 
