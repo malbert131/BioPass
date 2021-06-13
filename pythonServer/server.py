@@ -30,7 +30,7 @@ def enrollFace():
         f.write(response.file.read())
 
     # Need to add database values (NAME and PERSON_GROUP_ID) for arguments
-    personID = add_Person("matthew", "007")
+    personID = add_Person("007")
 
     return jsonify({"personId": personID})
 
@@ -49,9 +49,11 @@ def authenticateFace():
     confidenceScore = verification("007", personId)
 
     if (confidenceScore > 0.65):
+        print("FACE AUTH ACCEPTED")
         return jsonify({'isAuthenticated': True})
-
-    return jsonify({'isAuthenticated': False})
+    else:
+        print("FACE AUTH REJECTED")
+        return jsonify({'isAuthenticated': False})
 
 
 

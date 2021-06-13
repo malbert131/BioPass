@@ -59,7 +59,8 @@ const step3: FC = () => {
 
       <div className={styles.contentContainer}>
         <div className={styles.stepContainer}>
-          <h2>Step 3 of 4 Gesture Authentication</h2>
+          <h2>Step 3 of 4: Gesture Authentication</h2>
+          <h2>Please Capture Your Unique Gesture</h2>
         </div>
 
         <div className={styles.recorderContainer}>
@@ -68,7 +69,7 @@ const step3: FC = () => {
 
         {falseAuthentication &&
           <div className={styles.errorContainer}>
-            <p className={styles.errorMessage}>Sorry your gesture did not match. Try again!</p>
+            <p className={styles.errorMessage}>Sorry Your Gesture Did Not Match. Try Again!</p>
           </div>}
 
         <div className={styles.nextButtonContainer}>

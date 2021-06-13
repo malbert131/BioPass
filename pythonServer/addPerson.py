@@ -25,8 +25,8 @@ from key import FACE_ENDPOINT, FACE_ID_SUBSCRIPTION_KEY
 face_client = FaceClient(FACE_ENDPOINT, CognitiveServicesCredentials(FACE_ID_SUBSCRIPTION_KEY))
 
 # Creates Person object in Person Group
-def add_Person(NAME, PERSON_GROUP_ID):
-    new_user = face_client.person_group_person.create(PERSON_GROUP_ID, NAME)
+def add_Person(PERSON_GROUP_ID):
+    new_user = face_client.person_group_person.create(PERSON_GROUP_ID)
     image = formatImages('./enrollFace.jpg') # ADD PATH TO ENROLLMENT IMAGE
     # Adds Enrollment Image to New User Profile (aka new Person Object)
     face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, new_user.person_id, image, detection_model='detection_03')
