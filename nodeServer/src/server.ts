@@ -2,6 +2,9 @@ import enroll from "./enroll";
 import { VoiceProfile } from "microsoft-cognitiveservices-speech-sdk";
 import authentication from "./authenticate";
 import fromFileSTT from "./stt_verification";
+var CryptoJS = require("crypto-js");
+import { MASTER_KEY } from "./var";
+ 
 // import executeWavCommand from './exec';
 
 
@@ -326,6 +329,14 @@ app.get("/getAllPasswords", (req, res, next) => {
         next(error)
       } else {
         const passwords = results[0].passwords
+
+ 
+        for(let i = 0; i < passwords.length; i++) {
+          const encyptedPass = passwords[i].password
+          const decrypted  = CryptoJS.AES.decrypt(encyptedPass, MASTER_KEY);
+          passwords[i].password = decrypted.toString(CryptoJS.enc.Utf8);
+        }
+
         res.status(200).send({ passwords: passwords });
       }
     })
@@ -342,7 +353,9 @@ app.post("/createNewPassword", (req, res, next) => {
     const uuid = req.query.uuid;
     const { website, userName, password } = req.body;
 
-    const newPass = new Password({ website: website, userName: userName, password: password })
+    const encrypted_pass = CryptoJS.AES.encrypt(password, MASTER_KEY).toString();
+
+    const newPass = new Password({ website: website, userName: userName, password: encrypted_pass })
     
     Person.findOneAndUpdate(
       { _id: uuid },
