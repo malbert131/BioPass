@@ -11,6 +11,7 @@ nodeServer folder holds the JavaScript API and source code for the voice authent
 
   - A new voice profile for speaker verification is enrolled into the database in **enroll.ts**
     - used when user registers a new account
+  - TensorFlow gesture recognition is located in **Step3WebCam.tsx** in BioPass/client/comps/Layout/loginSteps/Step3/
 
   - Voice profile is matched against inputted audio on sign-in page in **authenticate.ts**
     - This is the main voice authentication algorithm and returns accepted or denied depending on if the inputted audio matches the previously enrolled voice profile
