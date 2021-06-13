@@ -19,10 +19,12 @@ function fromFileSTT() {
     recognizer.recognizeOnceAsync(result => {
     
       console.log(`RECOGNIZED: Text=${result.text}`);
+    
       text = result.text
 
-        // recognizer.close();
+      // recognizer.close();
     });
+  
 
     return text
 }

@@ -144,9 +144,10 @@ app.post(
           
           // calling authenticate function
           const confidence_score = await authentication(audioProfile);
-          const text = await fromFileSTT()
+          // const text = fromFileSTT()
 
-          if (confidence_score > 0.6 && text.toLowerCase() === pass) {
+
+          if (confidence_score > 0.75 ) {
             //maybe async and await for speech-to-text
             console.log("PASSED VOICE AUTH");
             res.status(200).send({ authenticated: true }); //send back that everything went ok
