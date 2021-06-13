@@ -86,6 +86,11 @@ const Util = {
     console.log(response.data.personId);
     
     await axios.post(`${baseUrl}/sendFacePersonId`, {faceRecognitionId: response.data.personId})
+  },
+
+  async deletePassword(id: string) {
+    const uuid = "ljn32jkf3l2"
+    await axios.post(`${baseUrl}/deletePassword`, {passId: id, uuid: uuid})
   }
 }
 
