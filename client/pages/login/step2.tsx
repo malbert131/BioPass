@@ -43,11 +43,11 @@ const step2: FC = () => {
 
       <div className={styles.contentContainer}>
         <div className={styles.stepContainer}>
-          <h2>Step 2 of 4 Voice Authentication</h2>
+          <h2>Step 2 of 4: Voice Authentication</h2>
         </div>
 
         <div className={styles.passPhraseContainer}>
-          <h2>Please Record your self saying your passphrase</h2>
+          <h2>Please Record Your Unique Passphrase</h2>
         </div>
 
         <div className={styles.recordContainer}>
@@ -56,7 +56,7 @@ const step2: FC = () => {
 
         {falseAuthentication &&
           <div className={styles.errorContainer}>
-            <p className={styles.errorMessage}>Sorry your voice did not match</p>
+            <p className={styles.errorMessage}>Sorry Your Voice Did Not Match</p>
           </div>}
 
         <div className={styles.nextButtonContainer}>

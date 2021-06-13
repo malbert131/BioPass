@@ -45,7 +45,7 @@ const step4: FC = () => {
 
       <div className={styles.contentContainer}>
         <div className={styles.stepContainer}>
-          <h2>Step 4 of 4 Face Authentication</h2>
+          <h2>Step 4 of 4: Face Authentication</h2>
         </div>
 
         <div className={styles.webCamSection}>
@@ -54,7 +54,7 @@ const step4: FC = () => {
 
         {falseAuthentication &&
           <div className={styles.errorContainer}>
-            <p className={styles.errorMessage}>Sorry your face was not recognized. Try Again!</p>
+            <p className={styles.errorMessage}>Sorry Your Face Was Not Recognized. Try Again!</p>
           </div>}
 
         <div className={styles.nextButtonContainer}>
