@@ -80,6 +80,7 @@ app.post("/enroll", upload.single("soundBlob"), async (req, res, next) => {
     const voiceID = await enroll();
 
     const id = req.query.uuid;
+    console.log(id)
     Person.findOneAndUpdate(
       { _id: id },
       {
