@@ -4,6 +4,7 @@ A customizable web-based password manager that utilizes biometric authentication
 
 
 **FILE LOCATIONS**
+
 client folder holds the source code for the application front-end
 
 nodeServer folder holds the JavaScript API and source code for the voice authentication and text-to-speech algorithms 
