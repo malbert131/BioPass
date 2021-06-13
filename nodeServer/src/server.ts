@@ -150,7 +150,7 @@ app.post(
           // const text = fromFileSTT()
 
 
-          if (confidence_score > 0.75 ) {
+          if (confidence_score > 0.70 ) {
             //maybe async and await for speech-to-text
             console.log("PASSED VOICE AUTH");
             res.status(200).send({ authenticated: true }); //send back that everything went ok

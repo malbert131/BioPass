@@ -6,6 +6,7 @@ import Webcam from "react-webcam";
 // @ts-ignore
 import * as fp from "fingerpose";
 
+
 import ConvertFunctions from "../../loginSteps/Step3/convert";
 
 import styles from "../../../../styles/SignUpSteps/step3/WebCamSection.module.css";
