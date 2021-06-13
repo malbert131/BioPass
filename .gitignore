@@ -2,3 +2,4 @@ nodeServer/node_modules/
 nodeServer/src/**/*.js
 nodeServer/src/var.ts
 pythonServer/FaceAuth/key.py
+nodeServer/src/mongoKey.ts

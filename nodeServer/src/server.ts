@@ -5,6 +5,10 @@ const morgan = require("morgan");
 const cors = require("cors");
 const errorhandler = require('errorhandler');
 const bodyParser = require('body-parser');
+// @ts-ignore
+const Config = require("config-js")
+// @ts-ignore
+const config = new Config("./mongoKey.ts")
 
 const multer  = require('multer') 
 const upload = multer(); 
@@ -12,7 +16,22 @@ const fs = require('fs');
 
 const PORT = 4000
 
-//midele ware
+// @ts-ignore
+const mongoose = require('mongoose');
+
+//MongoDB Connection
+mongoose.connect(config.get("uri"), {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+});
+const db = mongoose.connection;
+db.once("open", () => {
+  console.log("Clound Atlas Connected")
+})
+
+//middleware
 app.use(cors())
 app.use(morgan('dev'))
 app.use(errorhandler())
