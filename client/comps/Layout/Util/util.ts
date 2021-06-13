@@ -41,6 +41,21 @@ const Util = {
     return res.data.gesture
   },
 
+  async sendInitialData(data: any) {
+    await axios.post(`${baseUrl}/sendInitialData`, data)
+  },
+
+  async getUuid(email: any) {
+    console.log("HERE")
+    const res = await axios.get(`${baseUrl}/getUuid`, {
+      params: {
+        email: email
+      }
+    })
+    console.log("HERE")
+    return res.data.uuid
+  },
+
 
   async startFaceRecog(imageData: string) {
 

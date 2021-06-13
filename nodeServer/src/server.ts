@@ -78,6 +78,29 @@ app.post('/authenticateAudio', upload.single('soundBlob'), (req, res, next) => {
   
 })
 
+app.post('/sendInitialData', (req, res, next) => {
+  try {
+    const { name, email } = req.body;
+  } catch (error) {
+    
+  }
+})
+
+app.get('/getUuid', (req, res, next) => {
+  try {
+    // return uuid form mongo with email
+    const email = req.query.email
+
+    console.log(email)
+
+    const id = "3jkfbn2jbfo32bfo2bfb23fb23uof23f"
+
+    res.status(201).send({uuid: id})
+  } catch (error) {
+    next(error)
+  }
+})
+
 
 app.post('/sendGesture', (req, res, next) => {
   try {

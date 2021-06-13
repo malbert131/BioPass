@@ -1,12 +1,15 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import styles from "../../../../styles/SignUpSteps/step1/Step1Form.module.css";
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
+import Util from '../../Util/util';
+
 
 interface FormValues {
   name: string;
   email: string;
 }
+
 
 const Step1Form: FC = () => {
   const {
@@ -19,9 +22,10 @@ const Step1Form: FC = () => {
 
   const nextHref = "/sign-up/step2"
 
-  const submitForm = (data: FormValues) => {
+  const submitForm = async (data: FormValues) => {
     // Send data to the api
     console.log(data);
+    await Util.sendInitialData(data)
 
     router.push(nextHref)
   };
