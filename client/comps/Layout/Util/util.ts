@@ -56,6 +56,29 @@ const Util = {
     return res.data.uuid
   },
 
+  async faceAuthentication(imageData: string) {
+    // MAKE GET UUID FUNCTION
+    const uuid = "jlnfwjeknfwef"
+
+    const response = await axios.get(`${baseUrl}/getPersonId`, {
+      params: {
+        uuid: uuid
+      }
+    })
+    
+    
+    const personId = response.data.personId;
+    console.log('personId')
+
+    const res = await axios.post(`${baseUrlPython}/authenticateFace`, { imageSrc: imageData }, {
+      params: {
+        personId: personId
+      }
+    })
+    console.log(res.data.isAuthenticated)
+    return res.data.isAuthenticated
+  },
+
 
   async startFaceRecog(imageData: string) {
 

@@ -128,6 +128,23 @@ app.get('/getGesture', (req, res, next) => {
     next(error)
   }
 })
+
+app.get("/getPersonId", (req, res, next) => {
+  try {
+    // get person Ide form mongo
+
+    const uuid = req.query.uuid
+
+    console.log(uuid)
+
+    const id = "bbfjkwefb3bf23bfb32ufb2u3ifb"
+
+    res.send(200).send({personId: id})
+    
+  } catch (error) {
+    
+  }
+})
  
 app.listen(PORT, () => {
   console.log('The server is listening on port: ' + PORT);
