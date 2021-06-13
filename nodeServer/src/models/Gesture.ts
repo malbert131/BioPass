@@ -12,4 +12,4 @@ const GestureSchema = new Schema({
   });
 
 const Gesture = mongoose.model('Gesture', GestureSchema);
-module.exports = Gesture;
+module.exports = { Gesture, GestureSchema };

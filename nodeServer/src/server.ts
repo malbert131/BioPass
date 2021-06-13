@@ -18,6 +18,17 @@ const fs = require('fs');
 
 const PORT = 4000
 
+//importing mongoose Models
+const audio = require('./models/Audio.ts')
+const AudioProf = audio.AudioProf
+const face = require('./models/Face.ts')
+const Face = face.Face
+const gesture = require('./models/Gesture.ts')
+const Gesture = gesture.Gesture
+const person = require('./models/Person.ts')
+const Person = person.Person
+
+
 // @ts-ignore
 const mongoose = require('mongoose');
 

@@ -12,4 +12,4 @@ const FaceSchema = new Schema({
   });
 
 const Face = mongoose.model('Face', FaceSchema);
-module.exports = Face;
+module.exports = { FaceSchema, Face }
