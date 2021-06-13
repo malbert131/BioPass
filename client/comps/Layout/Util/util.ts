@@ -62,6 +62,7 @@ const Util = {
 
   async sendInitialData(data: any) {
     await axios.post(`${baseUrl}/sendInitialData`, data)
+    console.log(data)
     await useSetUuid(data.email)
   },
 
