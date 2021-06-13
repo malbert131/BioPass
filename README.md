@@ -9,7 +9,7 @@ client folder holds the source code for the application front-end
 
   - TensorFlow gesture recognition is located in **Step3WebCam.tsx** in BioPass/client/comps/Layout/loginSteps/Step3/
 
-nodeServer folder holds the JavaScript API and source code for the voice authentication and text-to-speech algorithms 
+nodeServer folder holds the JavaScript API and source code for the voice authentication and speech-to-text algorithms 
 
   - A new voice profile for speaker verification is enrolled into the database in **enroll.ts**
     - used when user registers a new account
