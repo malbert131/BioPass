@@ -7,6 +7,16 @@ Hackathon Demo:
 
 https://user-images.githubusercontent.com/66640918/188283724-54116dff-7ea8-4409-b823-22f22a40a88b.mp4
 
+Password Page View:
+
+
+![4j7yr5k636y6dqq6vsqgq7q179amv1asxtwp67ubkv5uscb7h6smr6hsibcjaq5g1q](https://user-images.githubusercontent.com/66640918/188284535-dd96269d-9c83-4cae-8d92-f7b8914b2edf.png)
+
+
+Database View of User Account:
+
+![au1uee2vbjo92znpet3q749299wwxtpajeescbhrgd7te1sauhr9devg8katra7ew5](https://user-images.githubusercontent.com/66640918/188284538-3ede59ed-0c3d-4def-8f34-dc2778a68fc5.png)
+
 
 
 **FILE LOCATIONS**
